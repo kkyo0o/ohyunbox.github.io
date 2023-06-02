@@ -20,6 +20,36 @@
             mapTypeControl: false
          });
         }
+        function getDeliveryInfo() {
+            var api_key = "5d1887ad2d0ab7fff1685690245145";
+            var tracking_number = "YOUR_TRACKING_NUMBER";
+
+            var url = "https://trace.epost.go.kr/trace/retrieveRrTrcNoList2.dev";
+            var params = {
+                "sid1": tracking_number,
+                "displayHeader": "N",
+                "displayDetail": "Y"
+            };
+
+            var headers = {
+                "Authorization": api_key
+            };
+
+            fetch(url + "?" + new URLSearchParams(params), {
+                headers: headers
+            })
+            .then(response => response.json())
+            .then(data => {
+                var trackingInfo = document.getElementById("tracking-info");
+                trackingInfo.innerHTML = JSON.stringify(data, null, 2);
+            })
+            .catch(error => {
+                console.error("API 요청에 실패했습니다.", error);
+            });
+        }
+
+        // 페이지 로드 시 배송 정보를 가져오도록 호출
+        getDeliveryInfo();
     </script>
     <style>
         #map-container {
@@ -59,7 +89,7 @@
       
                     <li class="search-box">
                         <i class='bx bx-search icon'></i>
-                        <input type="text" placeholder="Search...">
+                        <input type="text" onkeyup="printname()"/>
                     </li>
       
                     <ul class="menu-links">
