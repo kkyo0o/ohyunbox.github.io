@@ -21,6 +21,19 @@
             mapTypeControl: false
          });
         }
+        function getTrackingInfo() {
+            var trackingNumber = document.getElementById('trackingNumber').value;
+            var apiUrl = 'https://trace.epost.go.kr/xtts/servlet/kpl.tts.common.svl.SttSVL?ttb_code=epost&plnl_no=' + trackingNumber;
+
+            $.get(apiUrl, function(data) {
+            // API 호출 성공 시 실행될 콜백 함수
+            // 받아온 데이터를 가공하여 원하는 방식으로 출력해주세요.
+            document.getElementById('result').innerHTML = data;
+        }).fail(function() {
+            // API 호출 실패 시 실행될 콜백 함수
+            document.getElementById('result').innerText = 'API 호출에 실패하였습니다.';
+        });
+        }
         
     </script>
     <style>
@@ -115,6 +128,7 @@
       
         </nav>
         <script src="script.js"></script>
+        <div id="result"></div>
     </div>
 </body>
 </html>
