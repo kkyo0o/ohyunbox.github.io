@@ -23,7 +23,8 @@
         }
         function getTrackingInfo() {
             var trackingNumber = document.getElementById('trackingNumber').value;
-            var apiUrl = 'https://trace.epost.go.kr/xtts/servlet/kpl.tts.common.svl.SttSVL?ttb_code=epost&plnl_no=' + trackingNumber;
+            var apiUrl = 'https://kdexp.com/service/delivery/etc/delivery.do?barcode=' + trackingNumber;
+            window.open(apiUrl);
 
             $.get(apiUrl, function(data) {
             // API 호출 성공 시 실행될 콜백 함수
